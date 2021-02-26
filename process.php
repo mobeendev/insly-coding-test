@@ -11,9 +11,9 @@ $car_price =  $_POST['price_field'];
 $installments =  $_POST['installments'];
 $tax_field =  $_POST['tax_field'];
 
-echo '<pre>';
+// echo '<pre>';
 
-print_r($_POST);
+// print_r($_POST);
 
 // die;
 
@@ -28,17 +28,14 @@ $calculateTax->calculateBasePremium(); // checking who won the game
 $calculateTax->calculateComission(); // checking who won the game
 $calculateTax->calculateTax(); // checking who won the game
 $calculateTax->calculateCost(); // checking who won the game
-echo $calculateTax->printResult(); // checking who won the game
+// echo $calculateTax->printResult(); // checking who won the game
 
 
 
-die;
+// die;
 //storing the result in the session 
-$_SESSION['user_name'] = $rps->user_name;
-$_SESSION['user_selected'] = $user_selected;
-$_SESSION['robot_selected'] = $robot_selected;
-$_SESSION['result_calculated'] = true;
-$_SESSION['result'] = $rps->print_result();
+$_SESSION['user_name'] = $calculateTax->userName;
+$_SESSION['result'] = $calculateTax->printResult();
 // $rps->print_result();
 
 //returning to the previous page to show the final result

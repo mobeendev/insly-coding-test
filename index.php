@@ -51,7 +51,7 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
           <div class="mb-4">
-            <?php if (isset($_SESSION['result_calculated'])): ?>
+            <?php if (isset($_SESSION['result'])): ?>
               <div class="alert alert-primary" role="alert">
                 <?=$_SESSION['result']?>
               </div>
