@@ -36,7 +36,11 @@ $calculateTax->calculateCost(); // checking who won the game
 //storing the result in the session 
 $_SESSION['user_name'] = $calculateTax->userName;
 $_SESSION['result'] = $calculateTax->printResult();
-// $rps->print_result();
+$_SESSION['table'] = $calculateTax->getTabularRecord();
+$_SESSION['installments'] = $installments;
+$_SESSION['table'] =$calculateTax->getTabularRecord();
+// $calculateTax->getTabularRecord();
+// die;
 
 //returning to the previous page to show the final result
 header("Location: index.php");

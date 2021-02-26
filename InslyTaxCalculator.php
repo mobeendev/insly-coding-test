@@ -31,8 +31,6 @@
      public function calculateBasePremium()
      {
 
-
-
         $this->basePrimium = $this->basePrimiumPercentage/100* $this->carPrice ;
 
         // echo 'calculateBasePremium' .  $this->basePrimium ;
@@ -99,6 +97,25 @@
      	return $msg;
      }
 
+      public function getTabularRecord()
+      {
+  
+
+  $table =  '<br><table border=1><tr><th>Installments Plan</th><th>Base Premiun</th><th>Comission</th><th>taxAmount</th></tr>';
+
+        $installment = 1;
+        for ($counter=0; $counter <  $this->installments ; $counter ++) { 
+    
+  $table .=   "<tr>";
+          $table .=  "<td>Installments # ". ($installment++) ."</td><td>" . round($this->basePrimium /  $this->installments,2). "</td><td>" . round($this->commision /  $this->installments,2)."</td><td>".round($this->taxAmount /  $this->installments,2)."</td>";
+            $table .=  "<tr>";
+        }
+  $table .=  '</table>';
+
+  return $table;
+  
+      }
+
    /**
      * @method getBasePrimiumRate
    	 * The purpose of this method is to calculate the base premium percentage 
@@ -116,6 +133,7 @@
         $this->basePrimiumPercentage = 11;
      }
 
-   
    }
+
+
 }

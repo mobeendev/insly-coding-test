@@ -47,23 +47,12 @@
 
     <br>
 
-    <div class="row">
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-          <div class="mb-4">
-            <?php if (isset($_SESSION['result'])): ?>
-              <div class="alert alert-primary" role="alert">
-                <?=$_SESSION['result']?>
-              </div>
-            <?php endif; session_destroy();?>
-          </div>
-        </div>
-    </div>
+   
     
     <div class="row">
 
       <!-- Blog Entries Column -->
-      <div class="col-md-8">
+      <div class="col-md-6">
 
 
         <h1 class="my-4">Insly's - Car Tax Calculator
@@ -133,11 +122,27 @@
 
       </div>
 
-      <div class="col-md-4">
-        <img class="card-img-top" src="car-shop.jpg" wid alt="Car Image">
+      <div class="col-md-6">
+
+        <div class="row">
+                  <!-- <img class="card-img-top" src="car-shop.jpg" wid alt="Car Image"> -->
+
+              <div class="col-md-12">
+              <div class="mb-4">
+                <?php if (isset($_SESSION['result'])): ?>
+                  <div class="">
+                    <?=$_SESSION['result']?>
+                    <?=$_SESSION['table']?>
+                  </div>
+                <?php endif; session_destroy();?>
+              </div>
+        </div>
+        </div>
         
-        <!-- Search Widget -->
       </div>
+
+        <!-- Blog Entries Column -->
+       
 
       <!-- Sidebar Widgets Column -->
 
