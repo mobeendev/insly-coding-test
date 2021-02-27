@@ -110,7 +110,7 @@
              <div class="col-md-6 mb-3 custom-control">
                <label for="validationCustom01"> No of Installments</label>
 
-                 <select class="custom-select" id="inputGroupSelect02" required>
+                 <select class="custom-select" id="inputGroupSelect02" name="installments" required>
                     <option selected="selected" value="">--Select No of Installments--</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>

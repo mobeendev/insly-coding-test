@@ -5,76 +5,68 @@
   */
  class InslyTaxCalculator
  {
- 	public $basePrice = '';
- 	public $robot_choice = '';
- 	public $user_name = '';
+ 	public $carPrice = 0;
+ 	public $basePrimium = 0;
+  public $basePrimiumPercentage = 0;
+ 	public $userName = '';
 
- 	public $user_wins = false;
- 	public $robot_wins = false;
- 	public $draw= false;
- 	public $msg= false;
+ 	public $commision = 0;
+ 	public $taxPercentage =0;
+ 	public $totalCost= 0;
+ 	public $installments= 0;
+  public $taxAmount =0;
 
- 	public function __construct($user_name,$user_choice,$robot_choice) {
- 		$this->user_name = $user_name;
- 		$this->user_choice = $user_choice;
- 		$this->robot_choice = $robot_choice;
+ 	public function __construct($userName,$carPrice,$taxPercentage,$installments) {
+ 		$this->userName = $userName;
+ 		$this->carPrice = $carPrice;
+ 		$this->taxPercentage = $taxPercentage;
+    $this->installments = $installments;
+    $this->getBasePrimiumRate();
  	}
 
-
      /**
-     * Game Rules
-     * Below are the general setting for the real life scenarios
-	 * 1 is for Rock
-     * 2 is for Siccor
-     * 3 is for Paper
-     * @method check_result
-   	 * The purpose of this method is to calculate who will win based on the selection
-     * @param null
-     *
+     * calculate base premium
      */
 
-     public function check_result()
+     public function calculateBasePremium()
      {
 
-     	if($this->user_choice  == $this->robot_choice){
-     		$this->draw = true; 
-     	}else if($this->user_choice == 1){
-     		if($this->robot_choice == 2){
-     			$this->draw = false;
-     			$this->user_wins = true;
-     			$this->robot_wins = false;
-     		}else{
-     			$this->draw = false;
-     			$this->user_wins = false;
-     			$this->robot_wins = true;
-     		}
 
-     	}
-     	else if($this->user_choice == 2){
-     		if($this->robot_choice == 3){
-     			$this->draw = false;
-     			$this->user_wins = true;
-     			$this->robot_wins = false;
-     		}else{
-     			$this->draw = false;
-     			$this->user_wins = false;
-     			$this->robot_wins = true;
-     		}
 
-     	}
-     	else if($this->user_choice == 3){
-     		if($this->robot_choice == 1){
-     			$this->draw = false;
-     			$this->user_wins = true;
-     			$this->robot_wins = false;
-     		}else{
-     			$this->draw = false;
-     			$this->user_wins = false;
-     			$this->robot_wins = true;
-     		}
+        $this->basePrimium = $this->basePrimiumPercentage/100* $this->carPrice ;
 
-     	}
+        // echo 'calculateBasePremium' .  $this->basePrimium ;
 
+     }
+
+      /**
+     * calculate comission
+     */
+
+     public function calculateComission()
+     {
+        $this->commision = 17/100* $this->basePrimium ;
+        
+     }
+
+
+      /**
+     * calculate tax
+     */
+
+     public function calculateTax()
+     {
+        $this->taxAmount = $this->taxPercentage / 100 * $this->basePrimium ;
+        
+     }
+     /**
+     * calculate cost 
+     */
+
+     public function calculateCost()
+     {
+
+             $this->totalCost = $this->basePrimium +  $this->commision  +  $this->taxAmount;
 
      }
 
@@ -85,47 +77,45 @@
      * @return string  
      */
 
-     public function print_result()
+     public function printResult()
      {
-     	$this->user_name  = ucwords((strtolower($this->user_name)));
+     	$this->userName  = ucwords((strtolower($this->userName)));
 
-     	$msg = '<b>'. $this->user_name . '</b> selected: '.   $this->get_selected_objected($this->user_choice) . ' <br>
-         <b>Robot </b> selected:' . 
-     	$this->get_selected_objected($this->robot_choice)  . '. <br>';
+     	// $msg = '<b>'. $this->user_name . '</b> selected: '.   $this->get_selected_objected($this->user_choice) . ' <br>
+      //    <b>Robot </b> selected:' . 
+      $msg = 'Hi, <b>'   . $this->userName . '</b> from Inslay Insurance ';
+      $msg .= '<br>Todays is ' .date('d-m-Y H:i:s') . '<br>' ;
+      $msg .= 'Your Car Tax summary is provided below. <br>' ;
+  
+    $msg .=    'Applied Base Percentage: ' .$this->basePrimiumPercentage .' & Calculated Base premium is: ' .$this->basePrimium . '. <br>';
 
-     	if($this->user_wins){
-     		$msg .=  '<b>'. $this->user_name . '</b> win the game. <br>' ;
-     	}
+        $msg .= '</b> Comission: ' . $this->commision . '. <br>';
 
-     	if($this->robot_wins){
-     		$msg .=   ' Robot win the game. <br>' ;
-     	}
+        $msg .= '</b> Calculated Tax: ' . $this->taxAmount . '. <br>';
 
-     	if($this->draw){
-     		$msg .=   ' Its a draw <br>' ;
-     	}
+        $msg .= '</b> Calculated Total Cost: ' .$this->totalCost . '. <br>';
+
 
      	return $msg;
      }
 
    /**
-     * @method get_selected_objected
-   	 * The purpose of this method is identify the selected object/item 
-     * @param $choice
-     *
-     * @return mixed
+     * @method getBasePrimiumRate
+   	 * The purpose of this method is to calculate the base premium percentage 
+     * @return integer
      */
-   private function get_selected_objected($choice){
+   private function getBasePrimiumRate(){
+      // if day is 5th day of the week i.e Friday AND
+      // if hourr is between 15 and 20. as soon as time hits 20 or 8 PM, the rate is changed
+     if(date('N') == 5 && date('G') >= 15 && date('G') <= 19  ) 
+     {
+        $this->basePrimiumPercentage = 13;
 
+     }else{
 
-   	$config = [
-   		"1" => "Rock",
-   		"2" => "Siccor",
-   		"3" => "Paper"
-   	];
-   	if (array_key_exists($choice, $config)) {
-   		return $config[$choice];
-   	}
-   	return null;
+        $this->basePrimiumPercentage = 11;
+     }
+
+   
    }
 }
