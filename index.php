@@ -65,7 +65,7 @@
         <div class="mb-4">
 
 
-          <form class=""  name="rps_form" action="process.php" method="POST">
+          <form class=""  name="insly_form" action="process.php" method="POST">
 
             <div class="col-md-6 mb-3 custom-control">
               <label for="validationCustom01">Your Name</label>

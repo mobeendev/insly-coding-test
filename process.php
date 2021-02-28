@@ -1,6 +1,5 @@
 <?php
 session_start();
-// die;
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
@@ -11,24 +10,19 @@ $car_price =  $_POST['price_field'];
 $installments =  $_POST['installments'];
 $tax_field =  $_POST['tax_field'];
 
-// echo '<pre>';
-
-// print_r($_POST);
-
-// die;
 
 
-
-// a new rps object
+// a new InslyTaxCalculator object
 $calculateTax = new InslyTaxCalculator($user_name,$car_price,$tax_field,$installments);
 
 
-$calculateTax->calculateBasePremium(); // checking who won the game
+$calculateTax->calculateBasePremium(); //setting the base premium
 
-$calculateTax->calculateComission(); // checking who won the game
-$calculateTax->calculateTax(); // checking who won the game
-$calculateTax->calculateCost(); // checking who won the game
-// echo $calculateTax->printResult(); // checking who won the game
+$calculateTax->calculateComission(); //calculaiting comission
+$calculateTax->calculateTax(); //setting Tax
+$calculateTax->calculateCost(); //calculating the total cost
+
+// echo $calculateTax->printResult(); 
 
 
 
@@ -40,7 +34,6 @@ $_SESSION['table'] = $calculateTax->getTabularRecord();
 $_SESSION['installments'] = $installments;
 $_SESSION['table'] =$calculateTax->getTabularRecord();
 // $calculateTax->getTabularRecord();
-// die;
 
 //returning to the previous page to show the final result
 header("Location: index.php");

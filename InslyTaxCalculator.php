@@ -33,8 +33,6 @@
 
         $this->basePrimium = $this->basePrimiumPercentage/100* $this->carPrice ;
 
-        // echo 'calculateBasePremium' .  $this->basePrimium ;
-
      }
 
       /**
@@ -69,8 +67,8 @@
      }
 
      /**
-     * @method print_result
-   	 * The purpose of this method is to output the result
+     * @method printResult
+   	 * The purpose of this method is to output the final result
      * @param null
      * @return string  
      */
@@ -81,17 +79,19 @@
 
      	// $msg = '<b>'. $this->user_name . '</b> selected: '.   $this->get_selected_objected($this->user_choice) . ' <br>
       //    <b>Robot </b> selected:' . 
-      $msg = 'Hi, <b>'   . $this->userName . '</b> from Inslay Insurance ';
-      $msg .= '<br>Todays is ' .date('d-m-Y H:i:s') . '<br>' ;
+      $msg = 'Hi, <b>'   . $this->userName . '</b> from Inslay Insurance.';
+      $msg .= '<br>Today is ' .date('d-m-Y H:i:s') . '<br><br>' ;
       $msg .= 'Your Car Tax summary is provided below. <br>' ;
   
-    $msg .=    'Applied Base Percentage: ' .$this->basePrimiumPercentage .' & Calculated Base premium is: ' .$this->basePrimium . '. <br>';
+      $msg .=    'Applied Base Premium %: ' . $this->basePrimiumPercentage .' <br>';
 
-        $msg .= '</b> Comission: ' . $this->commision . '. <br>';
+        $msg .= '</b>  Calculated Base premium : ' . round($this->basePrimium,2) . '<br>';
 
-        $msg .= '</b> Calculated Tax: ' . $this->taxAmount . '. <br>';
+        $msg .= '</b> Comission: ' . round($this->commision,2) . '<br>';
 
-        $msg .= '</b> Calculated Total Cost: ' .$this->totalCost . '. <br>';
+        $msg .= '</b> Tax Amount: ' . round($this->taxAmount,2) . ' <br>';
+
+        $msg .= '</b> Calculated Total Cost: ' . round($this->totalCost,2) . '<br>';
 
 
      	return $msg;
@@ -101,7 +101,9 @@
       {
   
 
-  $table =  '<br><table border=1><tr><th>Installments Plan</th><th>Base Premiun</th><th>Comission</th><th>taxAmount</th></tr>';
+  $table =  '<br>
+  <b>With Installments the summary is provided below</b></br>
+  <table border=1><tr><th>Installment Plan</th><th>Base Premiun</th><th>Comission</th><th>Tax Amount</th></tr>';
 
         $installment = 1;
         for ($counter=0; $counter <  $this->installments ; $counter ++) { 
@@ -110,8 +112,15 @@
           $table .=  "<td>Installments # ". ($installment++) ."</td><td>" . round($this->basePrimium /  $this->installments,2). "</td><td>" . round($this->commision /  $this->installments,2)."</td><td>".round($this->taxAmount /  $this->installments,2)."</td>";
             $table .=  "<tr>";
         }
-  $table .=  '</table>';
 
+        if ($this->installments > 1) {
+        $table .=   "<tr>";
+          $table .=  "<td><b>Total Cost</b></td><td>" . round($this->basePrimium ). "</td><td>" . round($this->commision)."</td><td>".round($this->taxAmount)."</td>";
+            $table .=  "<tr>";
+      }
+
+      $table .=  '</table>';
+    
   return $table;
   
       }
